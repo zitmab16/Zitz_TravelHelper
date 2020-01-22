@@ -88,7 +88,7 @@ public class AddDialog extends javax.swing.JDialog {
     private void btOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOkActionPerformed
         ok = true;
         dest=new Destination(tfZipCode.getText(),tfDestination.getText());
-        
+        this.dispose();
     }//GEN-LAST:event_btOkActionPerformed
 
     private void btCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelActionPerformed
