@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package BL;
 
 import WeatherAPI1Day.Forecast;
@@ -19,7 +24,11 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-public class CurrentWeatherTableModel extends AbstractTableModel {
+/**
+ *
+ * @author vizug
+ */
+public class Forecast5DayTableModel extends AbstractTableModel{
 
     private ArrayList<Forecast> forecasts = new ArrayList();
     private static final String[] COLNAMES = {"Destination", "Weather", "Temperature", "Humidity", "Pressure", "Windspeed", "Time"};
@@ -55,27 +64,30 @@ public class CurrentWeatherTableModel extends AbstractTableModel {
         fireTableRowsInserted(forecasts.size() - 1, forecasts.size() - 1);
     }
 
-    public void showForeCasts(ArrayList<Destination> destinations) {
-        forecasts.clear();
-        Client c = ClientBuilder.newClient();
-        for (Destination destination : destinations) {
-            Response r = c.target(URI)
-                    .path(PATH)
-                    .queryParam("appid", APPID)
-                    .queryParam("zip", destination.getZipCode())
-                    .request(MediaType.APPLICATION_JSON)
-                    .get();
-
-            String jsonString = r.readEntity(String.class);
-            OpenWeatherResponse owr = new Gson().fromJson(jsonString, OpenWeatherResponse.class);
-            for (Weather w : owr.getWeather()) {
-                Image icon = getWeatherIcon(w.getIcon());
-                Forecast f = new Forecast(destination.getDestname(), icon, owr.getMain().getTemp(), owr.getMain().getHumidity(),
-                        owr.getMain().getPressure(), owr.getWind().getSpeed(), LocalDateTime.now());
-                addForecast(f);
-            }
-
-        }
+//    public void showForeCasts(ArrayList<Destination> destinations) {
+//        forecasts.clear();
+//        Client c = ClientBuilder.newClient();
+//        for (Destination destination : destinations) {
+//            Response r = c.target(URI)
+//                    .path(PATH)
+//                    .queryParam("appid", APPID)
+//                    .queryParam("zip", destination.getZipCode())
+//                    .request(MediaType.APPLICATION_JSON)
+//                    .get();
+//
+//            String jsonString = r.readEntity(String.class);
+//            OpenWeatherResponse owr = new Gson().fromJson(jsonString, OpenWeatherResponse.class);
+//            for (Weather w : owr.getWeather()) {
+//                Image icon = getWeatherIcon(w.getIcon());
+//                Forecast f = new Forecast(destination.getDestname(), icon, owr.getMain().getTemp(), owr.getMain().getHumidity(),
+//                        owr.getMain().getPressure(), owr.getWind().getSpeed(), LocalDateTime.now());
+//                addForecast(f);
+//            }
+//
+//        }
+//    }
+    public void show5DayForecast(Destination d){
+        
     }
 
     public Image getWeatherIcon(String id) {

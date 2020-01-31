@@ -1,6 +1,4 @@
-package WeatherAPI;
-
-
+package WeatherAPI5Day;
 public class Clouds {
 
     private int all;

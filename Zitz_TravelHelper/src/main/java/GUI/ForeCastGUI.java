@@ -7,6 +7,7 @@ package GUI;
 
 import BL.CurrentWeatherTableModel;
 import BL.Destination;
+import BL.Forecast5DayTableModel;
 import java.util.ArrayList;
 
 /**
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 public class ForeCastGUI extends javax.swing.JFrame {
 
     CurrentWeatherTableModel cwm = new CurrentWeatherTableModel();
+    Forecast5DayTableModel ftm = new Forecast5DayTableModel();
     
     /**
      * Creates new form ForeCastGUI
@@ -28,6 +30,9 @@ public class ForeCastGUI extends javax.swing.JFrame {
 
     public void showForecasts(ArrayList<Destination> destinations) {
         cwm.showForeCasts(destinations);
+    }
+    public void show5DayForecast(Destination d){
+        ftm.show5DayForecast(d);
     }
 
     /**

@@ -1,6 +1,6 @@
 package GUI;
 
-import WeatherAPI.Forecast;
+import WeatherAPI1Day.Forecast;
 import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.Image;

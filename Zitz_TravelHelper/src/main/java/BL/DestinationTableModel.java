@@ -43,4 +43,7 @@ public class DestinationTableModel extends AbstractTableModel{
     public ArrayList getDestinations(){
         return destinations;
     }
+    public Destination getDestination(int idx){
+        return destinations.get(idx);
+    }
 }

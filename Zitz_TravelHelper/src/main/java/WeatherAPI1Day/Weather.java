@@ -1,4 +1,4 @@
-package WeatherAPI;
+package WeatherAPI1Day;
 public class Weather {
 
     private int id;

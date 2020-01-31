@@ -1,5 +1,4 @@
-package WeatherAPI;
-
+package WeatherAPI5Day;
 import java.util.List;
 
 public class OpenWeatherResponse {

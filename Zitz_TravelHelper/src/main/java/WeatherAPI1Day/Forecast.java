@@ -1,5 +1,5 @@
 
-package WeatherAPI;
+package WeatherAPI1Day;
 
 import java.awt.Image;
 import java.time.LocalDateTime;

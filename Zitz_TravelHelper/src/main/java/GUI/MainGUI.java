@@ -41,6 +41,7 @@ public class MainGUI extends javax.swing.JFrame {
         miDelete = new javax.swing.JMenuItem();
         meForecasts = new javax.swing.JMenu();
         miShowForecasts = new javax.swing.JMenuItem();
+        miShow5Forecast = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -92,6 +93,14 @@ public class MainGUI extends javax.swing.JFrame {
         });
         meForecasts.add(miShowForecasts);
 
+        miShow5Forecast.setText("show five Day Forecast for a Destination");
+        miShow5Forecast.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miShow5ForecastActionPerformed(evt);
+            }
+        });
+        meForecasts.add(miShow5Forecast);
+
         jMenuBar1.add(meForecasts);
 
         setJMenuBar(jMenuBar1);
@@ -132,6 +141,11 @@ public class MainGUI extends javax.swing.JFrame {
        fcgui.setVisible(true);
        fcgui.showForecasts(dbm.getDestinations());
     }//GEN-LAST:event_miShowForecastsActionPerformed
+
+    private void miShow5ForecastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miShow5ForecastActionPerformed
+        fcgui.setVisible(true);
+        fcgui.show5DayForecast(dbm.getDestination(tbWeatherData.getSelectedRow()));
+    }//GEN-LAST:event_miShow5ForecastActionPerformed
 
     /**
      * @param args the command line arguments
@@ -175,6 +189,7 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JMenu meForecasts;
     private javax.swing.JMenuItem miAddDest;
     private javax.swing.JMenuItem miDelete;
+    private javax.swing.JMenuItem miShow5Forecast;
     private javax.swing.JMenuItem miShowForecasts;
     private javax.swing.JTable tbWeatherData;
     // End of variables declaration//GEN-END:variables
