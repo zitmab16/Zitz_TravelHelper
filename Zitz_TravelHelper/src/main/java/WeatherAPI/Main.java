@@ -1,4 +1,4 @@
-package BL;
+package WeatherAPI;
 public class Main {
     private float temp;
     private int pressure;

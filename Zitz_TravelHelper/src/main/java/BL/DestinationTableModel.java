@@ -40,4 +40,7 @@ public class DestinationTableModel extends AbstractTableModel{
         destinations.remove(row);
         fireTableRowsDeleted(row, row);
     }
+    public ArrayList getDestinations(){
+        return destinations;
+    }
 }

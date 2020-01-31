@@ -37,8 +37,11 @@
     </Component>
     <Component class="javax.swing.JTextField" name="tfZipCode">
       <Properties>
-        <Property name="text" type="java.lang.String" value="e.g. 8452,AT"/>
+        <Property name="text" type="java.lang.String" value="8452,at"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfZipCodeActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lbDestination">
       <Properties>
@@ -48,7 +51,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="tfDestination">
       <Properties>
-        <Property name="text" type="java.lang.String" value="e.g. Gro&#xdf;klein"/>
+        <Property name="text" type="java.lang.String" value="Gro&#xdf;klein"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btOk">

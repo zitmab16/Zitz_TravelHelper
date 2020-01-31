@@ -1,4 +1,4 @@
-package BL;
+package WeatherAPI;
 public class Sys {
 
     private int type;

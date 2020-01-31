@@ -1,4 +1,4 @@
-package Bl;
+package WeatherAPI;
 
 import java.util.List;
 

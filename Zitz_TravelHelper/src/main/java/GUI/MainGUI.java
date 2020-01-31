@@ -15,7 +15,7 @@ import BL.DestinationTableModel;
 public class MainGUI extends javax.swing.JFrame {
 
     DestinationTableModel dbm = new DestinationTableModel();
-
+    ForeCastGUI fcgui= new ForeCastGUI();
     /**
      * Creates new form MainGUI
      */
@@ -39,6 +39,8 @@ public class MainGUI extends javax.swing.JFrame {
         meEdit = new javax.swing.JMenu();
         miAddDest = new javax.swing.JMenuItem();
         miDelete = new javax.swing.JMenuItem();
+        meForecasts = new javax.swing.JMenu();
+        miShowForecasts = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,6 +82,18 @@ public class MainGUI extends javax.swing.JFrame {
 
         jMenuBar1.add(meEdit);
 
+        meForecasts.setText("Forecasts");
+
+        miShowForecasts.setText("show Forecast for all Destinations");
+        miShowForecasts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miShowForecastsActionPerformed(evt);
+            }
+        });
+        meForecasts.add(miShowForecasts);
+
+        jMenuBar1.add(meForecasts);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -113,6 +127,11 @@ public class MainGUI extends javax.swing.JFrame {
        int rowIdx = tbWeatherData.getSelectedRow();
        dbm.deleteDestination(rowIdx);
     }//GEN-LAST:event_miDeleteActionPerformed
+
+    private void miShowForecastsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miShowForecastsActionPerformed
+       fcgui.setVisible(true);
+       fcgui.showForecasts(dbm.getDestinations());
+    }//GEN-LAST:event_miShowForecastsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,8 +172,10 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu meEdit;
+    private javax.swing.JMenu meForecasts;
     private javax.swing.JMenuItem miAddDest;
     private javax.swing.JMenuItem miDelete;
+    private javax.swing.JMenuItem miShowForecasts;
     private javax.swing.JTable tbWeatherData;
     // End of variables declaration//GEN-END:variables
 }

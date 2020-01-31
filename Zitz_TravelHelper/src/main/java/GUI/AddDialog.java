@@ -56,14 +56,19 @@ public class AddDialog extends javax.swing.JDialog {
         lbZipCode.setPreferredSize(new java.awt.Dimension(120, 80));
         getContentPane().add(lbZipCode);
 
-        tfZipCode.setText("e.g. 8452,AT");
+        tfZipCode.setText("8452,at");
+        tfZipCode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfZipCodeActionPerformed(evt);
+            }
+        });
         getContentPane().add(tfZipCode);
 
         lbDestination.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbDestination.setText("Destination");
         getContentPane().add(lbDestination);
 
-        tfDestination.setText("e.g. Großklein");
+        tfDestination.setText("Großklein");
         getContentPane().add(tfDestination);
 
         btOk.setText("OK");
@@ -95,6 +100,10 @@ public class AddDialog extends javax.swing.JDialog {
         ok=false;
         this.dispose();
     }//GEN-LAST:event_btCancelActionPerformed
+
+    private void tfZipCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfZipCodeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfZipCodeActionPerformed
 
     /**
      * @param args the command line arguments
