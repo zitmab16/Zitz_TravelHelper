@@ -1,10 +1,10 @@
 package WeatherAPI5Day;
 public class Wind {
 
-    private float speed;
+    private double speed;
     private int deg;
 
-    public float getSpeed() {
+    public double getSpeed() {
         return speed;
     }
 

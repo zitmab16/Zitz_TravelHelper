@@ -24,15 +24,19 @@ public class ForeCastGUI extends javax.swing.JFrame {
      */
     public ForeCastGUI() {
         initComponents();
-        tbForecasts.setDefaultRenderer(Object.class, new ForecastCellRenderer());
-        tbForecasts.setModel(cwm);
+        
+        
     }
 
     public void showForecasts(ArrayList<Destination> destinations) {
+        tbForecasts.setDefaultRenderer(Object.class, new ForecastCellRenderer());
+        tbForecasts.setModel(cwm);
         cwm.showForeCasts(destinations);
     }
     public void show5DayForecast(Destination d){
-        ftm.show5DayForecast(d);
+        tbForecasts.setDefaultRenderer(Object.class, new ForeCast5DaysCellRenderer());
+        tbForecasts.setModel(ftm);
+        ftm.show5DayForeCasts(d);
     }
 
     /**
