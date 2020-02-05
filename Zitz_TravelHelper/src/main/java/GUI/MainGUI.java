@@ -7,6 +7,7 @@ package GUI;
 
 import BL.Destination;
 import BL.DestinationTableModel;
+import BL.XMLAccess;
 
 /**
  *
@@ -15,13 +16,20 @@ import BL.DestinationTableModel;
 public class MainGUI extends javax.swing.JFrame {
 
     DestinationTableModel dbm = new DestinationTableModel();
-    ForeCastGUI fcgui= new ForeCastGUI();
+    ForeCastGUI fcgui = new ForeCastGUI();
+    XMLAccess access;
+
     /**
      * Creates new form MainGUI
      */
     public MainGUI() {
         initComponents();
         tbWeatherData.setModel(dbm);
+        try {
+            access = new XMLAccess();
+        } catch (Exception ex) {
+        }
+        dbm.loadDestinations(access.loadFromXML());
     }
 
     /**
@@ -44,6 +52,11 @@ public class MainGUI extends javax.swing.JFrame {
         miShow5Forecast = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         tbWeatherData.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -129,23 +142,33 @@ public class MainGUI extends javax.swing.JFrame {
         if (dlg.isOk()) {
             Destination d = dlg.getDest();
             dbm.addDestination(d);
+            try {
+                access.addEntry(d);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
         }
     }//GEN-LAST:event_miAddDestActionPerformed
 
     private void miDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDeleteActionPerformed
-       int rowIdx = tbWeatherData.getSelectedRow();
-       dbm.deleteDestination(rowIdx);
+        int rowIdx = tbWeatherData.getSelectedRow();
+        dbm.deleteDestination(rowIdx);
     }//GEN-LAST:event_miDeleteActionPerformed
 
     private void miShowForecastsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miShowForecastsActionPerformed
-       fcgui.setVisible(true);
-       fcgui.showForecasts(dbm.getDestinations());
+        fcgui.setVisible(true);
+        fcgui.showForecasts(dbm.getDestinations());
     }//GEN-LAST:event_miShowForecastsActionPerformed
 
     private void miShow5ForecastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miShow5ForecastActionPerformed
         fcgui.setVisible(true);
-        fcgui.show5DayForecast(dbm.getDestination(tbWeatherData.getSelectedRow()));
+        fcgui.show5DayForecast(dbm.getDestinations());
     }//GEN-LAST:event_miShow5ForecastActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

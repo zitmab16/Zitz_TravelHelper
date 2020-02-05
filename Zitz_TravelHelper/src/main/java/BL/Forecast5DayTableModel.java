@@ -17,6 +17,7 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -33,7 +34,8 @@ import javax.ws.rs.core.Response;
 public class Forecast5DayTableModel extends AbstractTableModel {
 
     private ArrayList<Forecast5Days> forecasts = new ArrayList();
-    private static final String[] COLNAMES = {"Weather", "Temperature", "Humidity", "Pressure", "Windspeed", "Time"};
+    private ArrayList<Forecast5Days> forecastsFiltered = new ArrayList();
+    private static final String[] COLNAMES = {"Destination", "Weather", "Temperature", "Humidity", "Pressure", "Windspeed", "Time"};
     private static final String URI = "http://api.openweathermap.org/data/2.5/";
     private static final String PATH = "forecast";
     private static final String APPID = "b237d7a369f91268b22791af114ca846";
@@ -42,7 +44,7 @@ public class Forecast5DayTableModel extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return forecasts.size();
+        return forecastsFiltered.size();
     }
 
     @Override
@@ -57,39 +59,43 @@ public class Forecast5DayTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Forecast5Days f = forecasts.get(rowIndex);
+        Forecast5Days f = forecastsFiltered.get(rowIndex);
         return f;
     }
 
     public void addForecast(Forecast5Days f) {
         forecasts.add(f);
-        fireTableRowsInserted(forecasts.size() - 1, forecasts.size() - 1);
+        forecastsFiltered.add(f);
+        fireTableRowsInserted(forecastsFiltered.size() - 1, forecastsFiltered.size() - 1);
     }
 
-    public void show5DayForeCasts(Destination d) {
+    public void show5DayForeCasts(ArrayList<Destination> destinations) {
         forecasts.clear();
-        Client c = ClientBuilder.newClient();
-        Response r = c.target(URI)
-                .path(PATH)
-                .queryParam("appid", APPID)
-                .queryParam("zip", d.getZipCode())
-                .request(MediaType.APPLICATION_JSON)
-                .get();
+        forecastsFiltered.clear();
+        for (Destination d : destinations) {
+            Client c = ClientBuilder.newClient();
+            Response r = c.target(URI)
+                    .path(PATH)
+                    .queryParam("appid", APPID)
+                    .queryParam("zip", d.getZipCode())
+                    .request(MediaType.APPLICATION_JSON)
+                    .get();
 
-        String jsonString = r.readEntity(String.class);
-        OpenWeatherResponse owr = new Gson().fromJson(jsonString, OpenWeatherResponse.class);
+            String jsonString = r.readEntity(String.class);
+            OpenWeatherResponse owr = new Gson().fromJson(jsonString, OpenWeatherResponse.class);
 
-        java.util.List<WeatherAPI5Day.List> data = owr.getList();
+            java.util.List<WeatherAPI5Day.List> data = owr.getList();
 
-        for (List response : data) {
-            String time = response.getDt_txt().split(" ")[1];
-            if (time.equals("15:00:00")) {
-                for (Weather w : response.getWeather()) {
-                    Image icon = getWeatherIcon(w.getIcon());
-                    LocalDateTime ldt = LocalDateTime.parse(response.getDt_txt(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-                    Forecast5Days f = new Forecast5Days(d.getDestname(), icon, response.getMain().getTemp(), response.getMain().getHumidity(),
-                            response.getMain().getPressure(), response.getWind().getSpeed(), ldt);
-                    addForecast(f);
+            for (List response : data) {
+                String time = response.getDt_txt().split(" ")[1];
+                if (time.equals("15:00:00")) {
+                    for (Weather w : response.getWeather()) {
+                        Image icon = getWeatherIcon(w.getIcon());
+                        LocalDateTime ldt = LocalDateTime.parse(response.getDt_txt(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                        Forecast5Days f = new Forecast5Days(d.getDestname(), icon, response.getMain().getTemp(), response.getMain().getHumidity(),
+                                response.getMain().getPressure(), response.getWind().getSpeed(), ldt);
+                        addForecast(f);
+                    }
                 }
             }
         }
@@ -109,4 +115,27 @@ public class Forecast5DayTableModel extends AbstractTableModel {
         return image;
     }
 
+    public void showProposedDay(String d) {
+        forecastsFiltered.clear();
+        for (Forecast5Days forecast : forecasts) {
+            if (forecast.getTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).equals(d)) {
+                forecastsFiltered.add(forecast);
+                
+            }
+        }
+        fireTableDataChanged();
+
+    }
+    public void sortByTemp(){
+     Collections.sort(forecastsFiltered, new SortByTemperature());
+     fireTableDataChanged();
+    }
+    public void sortByHum(){
+     Collections.sort(forecastsFiltered, new SortByHumidity());
+     fireTableDataChanged();
+    }
+    public void sortByPressure(){
+     Collections.sort(forecastsFiltered, new SortByPressure());
+     fireTableDataChanged();
+    }
 }

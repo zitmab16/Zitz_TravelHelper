@@ -8,6 +8,7 @@ package GUI;
 import BL.CurrentWeatherTableModel;
 import BL.Destination;
 import BL.Forecast5DayTableModel;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -18,14 +19,17 @@ public class ForeCastGUI extends javax.swing.JFrame {
 
     CurrentWeatherTableModel cwm = new CurrentWeatherTableModel();
     Forecast5DayTableModel ftm = new Forecast5DayTableModel();
-    
+
     /**
      * Creates new form ForeCastGUI
      */
     public ForeCastGUI() {
         initComponents();
-        
-        
+        LocalDate date = LocalDate.now();
+        for (int i = 0; i < 5; i++) {
+            this.cbProposedDay.addItem(date.plusDays(i).toString());
+        }
+
     }
 
     public void showForecasts(ArrayList<Destination> destinations) {
@@ -33,10 +37,11 @@ public class ForeCastGUI extends javax.swing.JFrame {
         tbForecasts.setModel(cwm);
         cwm.showForeCasts(destinations);
     }
-    public void show5DayForecast(Destination d){
+
+    public void show5DayForecast(ArrayList<Destination> destinations) {
         tbForecasts.setDefaultRenderer(Object.class, new ForeCast5DaysCellRenderer());
         tbForecasts.setModel(ftm);
-        ftm.show5DayForeCasts(d);
+        ftm.show5DayForeCasts(destinations);
     }
 
     /**
@@ -48,10 +53,45 @@ public class ForeCastGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        miSortByTemp = new javax.swing.JMenuItem();
+        miSortByHum = new javax.swing.JMenuItem();
+        miSortByPressure = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbForecasts = new javax.swing.JTable();
+        cbProposedDay = new javax.swing.JComboBox<>();
+        btCheckProposedDay = new javax.swing.JButton();
+
+        miSortByTemp.setText("sort by Temperature");
+        miSortByTemp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miSortByTempActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(miSortByTemp);
+
+        miSortByHum.setText("sort by Humidity");
+        miSortByHum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miSortByHumActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(miSortByHum);
+
+        miSortByPressure.setText("sort by Pressure");
+        miSortByPressure.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miSortByPressureActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(miSortByPressure);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         tbForecasts.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -64,21 +104,71 @@ public class ForeCastGUI extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbForecasts.setComponentPopupMenu(jPopupMenu1);
         jScrollPane1.setViewportView(tbForecasts);
+
+        cbProposedDay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbProposedDayActionPerformed(evt);
+            }
+        });
+
+        btCheckProposedDay.setText("check Proposed Day");
+        btCheckProposedDay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCheckProposedDayActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btCheckProposedDay, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+                    .addComponent(cbProposedDay, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(cbProposedDay, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btCheckProposedDay)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cbProposedDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbProposedDayActionPerformed
+
+    }//GEN-LAST:event_cbProposedDayActionPerformed
+
+    private void btCheckProposedDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCheckProposedDayActionPerformed
+        String date = (String) cbProposedDay.getSelectedItem();
+        ftm.showProposedDay(date);
+    }//GEN-LAST:event_btCheckProposedDayActionPerformed
+
+    private void miSortByTempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSortByTempActionPerformed
+        ftm.sortByTemp();
+    }//GEN-LAST:event_miSortByTempActionPerformed
+
+    private void miSortByHumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSortByHumActionPerformed
+        ftm.sortByHum();
+    }//GEN-LAST:event_miSortByHumActionPerformed
+
+    private void miSortByPressureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSortByPressureActionPerformed
+        ftm.sortByPressure();
+    }//GEN-LAST:event_miSortByPressureActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+      
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -116,7 +206,13 @@ public class ForeCastGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btCheckProposedDay;
+    private javax.swing.JComboBox<String> cbProposedDay;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenuItem miSortByHum;
+    private javax.swing.JMenuItem miSortByPressure;
+    private javax.swing.JMenuItem miSortByTemp;
     private javax.swing.JTable tbForecasts;
     // End of variables declaration//GEN-END:variables
 }

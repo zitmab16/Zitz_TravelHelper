@@ -41,7 +41,7 @@ public class ForeCast5DaysCellRenderer implements TableCellRenderer {
                 label.setText(String.format("%.2f km/h", f.getWindspeed()));
                 break;
             case 6:
-                label.setText(f.getTime().format(DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm")));
+                label.setText(f.getTime().format(DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm:ss")));
                 break;
         }
 
