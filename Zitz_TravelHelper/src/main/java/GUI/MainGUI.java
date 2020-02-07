@@ -24,11 +24,14 @@ public class MainGUI extends javax.swing.JFrame {
      */
     public MainGUI() {
         initComponents();
+        //will set the table model
         tbWeatherData.setModel(dbm);
+        //will create a object from the xmlaccess class
         try {
             access = new XMLAccess();
         } catch (Exception ex) {
         }
+        //load the destinations
         dbm.loadDestinations(access.loadFromXML());
     }
 
@@ -136,6 +139,11 @@ public class MainGUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_meEditActionPerformed
 
+    /**
+     * will create a new destination dialog and get the created destination from the dialog
+     * The destinaion will immediately stored in the xml file
+     * @param evt 
+     */
     private void miAddDestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAddDestActionPerformed
         AddDialog dlg = new AddDialog(this, true);
         dlg.setVisible(true);
@@ -151,16 +159,28 @@ public class MainGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_miAddDestActionPerformed
 
+    /**
+     * will delete a selected destination
+     * @param evt 
+     */
     private void miDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDeleteActionPerformed
         int rowIdx = tbWeatherData.getSelectedRow();
         dbm.deleteDestination(rowIdx);
     }//GEN-LAST:event_miDeleteActionPerformed
-
+    
+    /**
+     * will display the one day forecast
+     * @param evt 
+     */
     private void miShowForecastsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miShowForecastsActionPerformed
         fcgui.setVisible(true);
         fcgui.showForecasts(dbm.getDestinations());
     }//GEN-LAST:event_miShowForecastsActionPerformed
 
+    /**
+     * will display the five day forecast
+     * @param evt 
+     */
     private void miShow5ForecastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miShow5ForecastActionPerformed
         fcgui.setVisible(true);
         fcgui.show5DayForecast(dbm.getDestinations());

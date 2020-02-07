@@ -25,6 +25,7 @@ public class ForeCastGUI extends javax.swing.JFrame {
      */
     public ForeCastGUI() {
         initComponents();
+        //will display the dates for the next five days from now on 
         LocalDate date = LocalDate.now();
         for (int i = 0; i < 5; i++) {
             this.cbProposedDay.addItem(date.plusDays(i).toString());
@@ -32,12 +33,24 @@ public class ForeCastGUI extends javax.swing.JFrame {
 
     }
 
+    /**
+     * fills the table with the one day forecast and displays it. the table
+     * model and the cellrenderer will be changed
+     *
+     * @param destinations
+     */
     public void showForecasts(ArrayList<Destination> destinations) {
         tbForecasts.setDefaultRenderer(Object.class, new ForecastCellRenderer());
         tbForecasts.setModel(cwm);
         cwm.showForeCasts(destinations);
     }
 
+    /**
+     * fills the table with the five day forecast and displays it. the table
+     * model and the cellrenderer will be changed
+     *
+     * @param destinations
+     */
     public void show5DayForecast(ArrayList<Destination> destinations) {
         tbForecasts.setDefaultRenderer(Object.class, new ForeCast5DaysCellRenderer());
         tbForecasts.setModel(ftm);
@@ -151,6 +164,7 @@ public class ForeCastGUI extends javax.swing.JFrame {
 
     private void btCheckProposedDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCheckProposedDayActionPerformed
         String date = (String) cbProposedDay.getSelectedItem();
+        //will call the methode in the table model and will filter the list
         ftm.showProposedDay(date);
     }//GEN-LAST:event_btCheckProposedDayActionPerformed
 
@@ -167,7 +181,7 @@ public class ForeCastGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_miSortByPressureActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-      
+
     }//GEN-LAST:event_formWindowClosing
 
     /**

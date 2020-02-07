@@ -22,6 +22,11 @@ public class XMLAccess {
     }
     
     
+     /**
+      * creates a xml file with the File f as parameter
+      * @param f
+      * @throws Exception 
+      */
     private void createXML(File f) throws Exception {
         if (f.createNewFile()) {
             Element e = new Element("entries");
@@ -42,6 +47,11 @@ public class XMLAccess {
         return instance;
     }
 
+    /**
+     * adds a Entry in the xml file and save the file 
+     * @param d
+     * @throws IOException 
+     */
     public void addEntry(Destination d) throws IOException {
         Element ele = new Element("city");
         Element childele = new Element("destination");
@@ -56,12 +66,20 @@ public class XMLAccess {
         saveXML();
     }
 
+    /**
+     * save the state of the xml file
+     * @throws IOException 
+     */
     private void saveXML() throws IOException {
         XMLOutputter xmlOut = new XMLOutputter();
         xmlOut.setFormat(Format.getPrettyFormat());
         xmlOut.output(doc, new FileWriter(new File(path)));
     }
 
+    /**
+     * load the data from the file and create destination object which are filling a list you return
+     * @return 
+     */
     public ArrayList<Destination> loadFromXML() {
         Element root = doc.getRootElement();
         String destination = "";

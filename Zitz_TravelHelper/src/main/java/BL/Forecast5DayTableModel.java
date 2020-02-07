@@ -63,12 +63,20 @@ public class Forecast5DayTableModel extends AbstractTableModel {
         return f;
     }
 
+    /**
+     * adds a five day weather forecast to the list and displays it
+     * @param f 
+     */
     public void addForecast(Forecast5Days f) {
         forecasts.add(f);
         forecastsFiltered.add(f);
         fireTableRowsInserted(forecastsFiltered.size() - 1, forecastsFiltered.size() - 1);
     }
 
+    /**
+     * this method will get the data from the OpenWeatherAPI and build a five day weather forecast object
+     * @param destinations 
+     */
     public void show5DayForeCasts(ArrayList<Destination> destinations) {
         forecasts.clear();
         forecastsFiltered.clear();
@@ -102,6 +110,11 @@ public class Forecast5DayTableModel extends AbstractTableModel {
 
     }
 
+    /**
+     * This method will get the image with the id for the weather object above
+     * @param id
+     * @return 
+     */
     public Image getWeatherIcon(String id) {
         Image image = null;
         try {
@@ -115,6 +128,10 @@ public class Forecast5DayTableModel extends AbstractTableModel {
         return image;
     }
 
+    /**
+     * This methode will filter the list after a specific day the user has selected in the GUI
+     * @param d 
+     */
     public void showProposedDay(String d) {
         forecastsFiltered.clear();
         for (Forecast5Days forecast : forecasts) {
@@ -126,14 +143,23 @@ public class Forecast5DayTableModel extends AbstractTableModel {
         fireTableDataChanged();
 
     }
+    /**
+     * sort the list by temperature
+     */
     public void sortByTemp(){
      Collections.sort(forecastsFiltered, new SortByTemperature());
      fireTableDataChanged();
     }
+    /**
+     * sort the list by temperature
+     */
     public void sortByHum(){
      Collections.sort(forecastsFiltered, new SortByHumidity());
      fireTableDataChanged();
     }
+    /**
+     * sort the list by temperature
+     */
     public void sortByPressure(){
      Collections.sort(forecastsFiltered, new SortByPressure());
      fireTableDataChanged();

@@ -90,6 +90,10 @@ public class AddDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * create a new destination object and disposes the dialog
+     * @param evt 
+     */
     private void btOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOkActionPerformed
         ok = true;
         dest=new Destination(tfZipCode.getText(),tfDestination.getText());

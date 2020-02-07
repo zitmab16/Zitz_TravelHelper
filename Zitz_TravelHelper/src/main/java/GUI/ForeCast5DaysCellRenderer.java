@@ -16,6 +16,9 @@ import javax.swing.table.TableCellRenderer;
 public class ForeCast5DaysCellRenderer implements TableCellRenderer {
 
     @Override
+    /**
+     * used to display the data correctly in the table
+     */
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         JLabel label = new JLabel();
         label.setText(value.toString());
@@ -49,6 +52,13 @@ public class ForeCast5DaysCellRenderer implements TableCellRenderer {
 
     }
 
+    /**
+     * scales the image 
+     * @param srcImg
+     * @param w
+     * @param h
+     * @return 
+     */
     private Image getScaledImage(Image srcImg, int w, int h) {
         BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2 = resizedImg.createGraphics();

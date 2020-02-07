@@ -50,11 +50,20 @@ public class CurrentWeatherTableModel extends AbstractTableModel {
         return f;
     }
 
+    /**
+     * add the created forecast to the list and update the table model
+     * @param f 
+     */
     public void addForecast(Forecast f) {
         forecasts.add(f);
         fireTableRowsInserted(forecasts.size() - 1, forecasts.size() - 1);
     }
 
+    /**
+     * get the forecast data from the OpenWeatherAPI and build a forecast obejct
+     * with the data
+     * @param destinations 
+     */
     public void showForeCasts(ArrayList<Destination> destinations) {
         forecasts.clear();
         Client c = ClientBuilder.newClient();
@@ -78,6 +87,11 @@ public class CurrentWeatherTableModel extends AbstractTableModel {
         }
     }
 
+    /**
+     * This method will get the image with the id for the weather object above
+     * @param id
+     * @return 
+     */
     public Image getWeatherIcon(String id) {
         Image image = null;
         try {
