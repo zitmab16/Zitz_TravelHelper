@@ -43,6 +43,8 @@ public class ForeCastGUI extends javax.swing.JFrame {
         tbForecasts.setDefaultRenderer(Object.class, new ForecastCellRenderer());
         tbForecasts.setModel(cwm);
         cwm.showForeCasts(destinations);
+        btCheckProposedDay.setVisible(false);
+        cbProposedDay.setVisible(false);
     }
 
     /**
@@ -55,6 +57,8 @@ public class ForeCastGUI extends javax.swing.JFrame {
         tbForecasts.setDefaultRenderer(Object.class, new ForeCast5DaysCellRenderer());
         tbForecasts.setModel(ftm);
         ftm.show5DayForeCasts(destinations);
+        btCheckProposedDay.setVisible(true);
+        cbProposedDay.setVisible(true);
     }
 
     /**
